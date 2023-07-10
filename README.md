@@ -5,6 +5,7 @@ I am excited to showcase my SQL project focused on building a Product Item Manag
 This project involves designing and managing a database to store and retrieve product information efficiently.
 
 Implemented Tables:
+
 ProductItem: Stores details of products, including item number, name, type, category, subcategory, size, and price.
 
 Template: Manages templates used for product customization, with attributes like template ID, dimensions, pixel dimensions, optimal resolution, and printing method.
