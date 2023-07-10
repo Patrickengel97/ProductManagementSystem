@@ -1,0 +1,228 @@
+/*Implemented tables:
+ProductItem:(ItemNumber, ProductName, ProductType, Category, Subcategory, 
+ProductSize, Price),
+PK: ItemNumber
+
+Template:(TemplateId, TemplateWidth, TemplateHeight, PixelWidth, PixelHeight,
+OptimalResolution, PrintingMethodId), 
+PK: TemplateId, OptimalResolution, PrintingMethodId
+FK: PrintingMethod
+
+Fabric:(FabricId, FabricName, CareInstructionsId) 
+PK: FabricId
+FK: CareInstructionsId
+
+PrintingMethod:(MethodId, MethodName)
+PK: MethodId
+
+CareInstructions:(CareInstructionsId, InstructionName)
+PK: CareInstructionsId
+
+Features:(FeatureId, FeatureName)
+PK: FeatureId
+*/
+
+--Add Drop Table Statements to the beginning of the script file:
+Drop table dept cascade constraints;
+Drop table emp cascade constraints;
+Drop table customer cascade constraints;
+Drop table product cascade constraints;
+Drop table ord cascade constraints;
+Drop table item cascade constraints;
+Drop table salgrade cascade constraints;
+Drop table bonus cascade constraints;
+Drop table price cascade constraints;
+
+Purge RecycleBin;
+
+create table productitem 
+(
+    itemnumber varchar2(20),
+    productname varchar2(55),
+    producttype varchar2(35),
+    category varchar2(20),
+    subcategory varchar2(25),
+    productsize varchar2(15),
+    price number(10,2),
+    constraint productitem_itemnumber_pk
+    primary key(itemnumber)
+);
+--Create 5 rows of data for table similar to Customer, Emp, or Product:
+insert all
+    into productitem (itemnumber, productname, producttype, category, 
+    subcategory, productsize, price)
+        values ('PRT-GEN-SD4GTZ', 'Poly Twill Pillow Cover - 14" x 14"', 
+        'Throw Pillows', 'Home Decor', 'Pillows', '14INx14IN', 9.32)
+    into productitem (itemnumber, productname, producttype, category, 
+    subcategory, productsize, price)
+        values ('PRT-GEN-SL6GTZ', 'Poly Twill Pillow Cover - 16" x 16"', 
+        'Throw Pillows', 'Home Decor', 'Pillows', '16INx16IN', 11.32)
+    into productitem (itemnumber, productname, producttype, category, 
+    subcategory, productsize, price)
+        values ('PRT-GEN-SHGT14', 'Poly Twill Pillow Cover - 20" x 14"', 
+        'Throw Pillows', 'Home Decor', 'Pillows', '20INx14IN', 10.87)
+    into productitem (itemnumber, productname, producttype, category, 
+    subcategory, productsize, price)
+        values ('PRT-GEN-SLGPTZ', 'Poly Twill Pillow Cover - 18" x 18"', 
+        'Throw Pillows', 'Home Decor', 'Pillows', '18INx18IN', 11.23)
+    into productitem (itemnumber, productname, producttype, category, 
+    subcategory, productsize, price)
+        values ('PRT-GEN-SQGPTZ', 'Poly Twill Pillow Cover - 20" x 20"', 
+        'Throw Pillows', 'Home Decor', 'Pillows', '20INx20IN', 14.15)
+select * from dual;
+
+create table printingmethod 
+(
+methodid varchar2(8),
+methodname varchar2(25),
+constraint printingmethod_methodid_pk
+primary key(methodid)
+);
+--Table similar to customer, emp, or product - 5 rows.
+insert all
+    into printingmethod (methodid, methodname)
+    values ('M-PF', 'PRINTEDFACE')
+    into printingmethod (methodid, methodname)
+    values ('M-SPF', 'SMOOTHPRINTEDFRONT')
+    into printingmethod (methodid, methodname)
+    values ('M-DS', 'DYESUBLIMATION')
+    into printingmethod (methodid, methodname)
+    values ('M-DSP', 'DOUBLESIDEDPRINT')
+    into printingmethod (methodid, methodname)
+    values ('M-DF','DIRECTTOFABRIC')
+select * from dual;
+
+create table template
+(
+    templateid varchar2(5),
+    templatewidth number(4,2),
+    templateheight number(4,2),
+    pixelwidth number(10),
+    pixelheight number(10),
+    optimalresolution number(5),
+    printingmethodid varchar2(8),
+    constraint template_templateid_optimalresolution_printingmethod_pk
+    primary key(templateid, optimalresolution, printingmethodid),
+    constraint template_printhingmethodid_fk
+    foreign key(printingmethodid) references printingmethod (methodid)
+);
+/*Since the template entries have the same info but multiple printingmethodid's,
+we will do multiple entries with the different printingmethodid's */
+insert all
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('32A', 31, 15.50, 4650, 2325, 150, 'M-DSP')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('32A', 31, 15.50, 4650, 2325, 150, 'M-DS')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('33A', 35, 17.50, 5250, 2625, 150, 'M-DSP')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('33A', 35, 17.50, 5250, 2625, 150, 'M-DS')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('34A', 21.50, 31, 3225, 4650, 150, 'M-DSP')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('34A', 21.50, 31, 5250, 3225, 150, 'M-DS')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('35A', 39, 19.50, 5850, 2925, 150, 'M-DSP')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('35A', 39, 19.50, 5850, 2925, 150, 'M-DS')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('36A', 43, 21.50, 6450, 3225, 150, 'M-DSP')
+    into template (templateid, templatewidth, templateheight, 
+    pixelwidth, pixelheight, optimalresolution, printingmethodid)
+    values ('36A', 43, 21.50, 6450, 3225, 150, 'M-DS')
+select * from dual;
+
+create table features
+(
+    featureid varchar2(10),
+    featurename varchar2(25),
+    constraint features_featureid_pk
+    primary key(featureid)
+);
+/* For this table, we will create 6 rows of data for examples of the
+different features. */
+insert all
+    into features (featureid, featurename)
+    values ('F-FR', 'FADERESISTANT')
+    into features (featureid, featurename)
+    values ('F-HE', 'HEMMEDEDGES')
+    into features (featureid, featurename)
+    values ('F-LFD', 'LAYFLATDESIGN')
+    into features (featureid, featurename)
+    values ('F-CO', 'COVERONLY')
+    into features (featureid, featurename)
+    values ('F-HZ', 'HIDDENZIPPER')
+    into features (featureid, featurename)
+    values ('F-RC', 'REMOVABLECOVER')
+select * from dual;
+
+create table careinstructions
+(
+    careinstructionsid varchar2(8),
+    instructionname varchar2(25),
+    constraint careinstructions_careinstructionsid_pk
+    primary key(careinstructionsid)
+);
+/* Careinstructions has a m-n relationship with fabric, which calls 
+for 12 or more rows of data, however, there are only 4 total care instructions 
+in the data */
+insert all
+    into careinstructions (careinstructionsid, instructionname)
+    values ('C-ILH', 'IRONLOWHEAT')
+    into careinstructions (careinstructionsid, instructionname)
+    values ('C-DCO', 'DRYCLEANONLY')
+    into careinstructions (careinstructionsid, instructionname)
+    values ('C-HW', 'HANDWASH')
+    into careinstructions (careinstructionsid, instructionname)
+    values ('C-MWC', 'MACHINEWASHCOLD')
+select * from dual;
+
+create table fabric
+(
+    fabricid varchar2(6),
+    fabricname varchar2(25),
+    careinstructionsid varchar2(8),
+    constraint fabric_fabricid_pk
+    primary key(fabricid),
+    constraint fabric_careinstructionsid_fk
+    foreign key
+    (careinstructionsid) references careinstructions (careinstructionsid)
+);
+-- Create 12 or more rows of data for table with m-n relationship    
+insert all
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB1', 'POLYESTER', 'C-DCO')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB2', 'FLEECE', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB3', 'QUICKDRYCONSTRUCTION', 'C-DCO')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB4', 'FAUXLINEN', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB5', 'FAUXSUEDE', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB6', 'COTTOWNTWILL', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB7', 'MICROFIBER', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB8', 'SPUNPOLYESTER', 'C-MWC')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB9', 'LINEN', 'C-DCO')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB10', 'CANVAS', 'C-DCO')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB11', 'ALUMINUM', 'C-DCO')
+    into fabric (fabricid, fabricname, careinstructionsid)
+    values ('AB12', 'POLYTWILL', 'C-MWC')
+select * from dual;
+
+commit;
