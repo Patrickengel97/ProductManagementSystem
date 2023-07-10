@@ -22,19 +22,6 @@ Features:(FeatureId, FeatureName)
 PK: FeatureId
 */
 
---Add Drop Table Statements to the beginning of the script file:
-Drop table dept cascade constraints;
-Drop table emp cascade constraints;
-Drop table customer cascade constraints;
-Drop table product cascade constraints;
-Drop table ord cascade constraints;
-Drop table item cascade constraints;
-Drop table salgrade cascade constraints;
-Drop table bonus cascade constraints;
-Drop table price cascade constraints;
-
-Purge RecycleBin;
-
 create table productitem 
 (
     itemnumber varchar2(20),
@@ -47,7 +34,7 @@ create table productitem
     constraint productitem_itemnumber_pk
     primary key(itemnumber)
 );
---Create 5 rows of data for table similar to Customer, Emp, or Product:
+
 insert all
     into productitem (itemnumber, productname, producttype, category, 
     subcategory, productsize, price)
@@ -78,7 +65,7 @@ methodname varchar2(25),
 constraint printingmethod_methodid_pk
 primary key(methodid)
 );
---Table similar to customer, emp, or product - 5 rows.
+
 insert all
     into printingmethod (methodid, methodname)
     values ('M-PF', 'PRINTEDFACE')
@@ -172,9 +159,7 @@ create table careinstructions
     constraint careinstructions_careinstructionsid_pk
     primary key(careinstructionsid)
 );
-/* Careinstructions has a m-n relationship with fabric, which calls 
-for 12 or more rows of data, however, there are only 4 total care instructions 
-in the data */
+
 insert all
     into careinstructions (careinstructionsid, instructionname)
     values ('C-ILH', 'IRONLOWHEAT')
@@ -197,7 +182,7 @@ create table fabric
     foreign key
     (careinstructionsid) references careinstructions (careinstructionsid)
 );
--- Create 12 or more rows of data for table with m-n relationship    
+
 insert all
     into fabric (fabricid, fabricname, careinstructionsid)
     values ('AB1', 'POLYESTER', 'C-DCO')
