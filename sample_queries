@@ -1,0 +1,91 @@
+/*1. Show the how to take care of the fabric for a product made of polyester.
+(Query Type: Join) */
+select fabric.fabricname, careinstructions.instructionname
+from fabric 
+inner join careinstructions
+on (fabric.careinstructionsid = careinstructions.careinstructionsid)
+where lower(fabricname) = 'polyester';
+
+/*2.Find the templateid, optimalresolution, and methodname 
+where templateid is '34A' and methodid is 'M-DSP'.
+(Query Type: Join) */ 
+select template.templateid, optimalresolution, printingmethod.methodname
+from template
+inner join printingmethod
+on (template.printingmethodid = printingmethod.methodid)
+where lower(template.templateid) = '34a'
+and lower(printingmethod.methodid) = 'm-dsp';
+
+/*3. Find the amount of items per subcategory in the productitem table.
+show the amount with an alias of 'PRODUCTAMOUNT'.
+(Query Type: Aggregate)*/
+select count(itemnumber)"PRODUCTAMOUNT", subcategory
+from productitem
+group by subcategory;
+
+/*4. Show the average price for all products in the productitem table.
+(Query Type: Aggregate) */
+select avg(price) "AveragePriceofProducts"
+from  productitem;
+
+/*5. Find the minimum pixelheight from the template table where 
+templateid is equal to '35A'
+(Query Type: Aggregate) */
+select min(pixelheight)
+from template
+where lower(templateid) = '35a';
+
+/*6. Find products where the price is greater than the median price of
+all the products. Show the produtname, itemnumber, productsize, and 
+price for products bought twice.
+(Query Type: Sub Query) */
+select productname, itemnumber, productsize, (price*2)"PRODUCTBOUGHTTWICE"
+from productitem
+where price >
+(
+    select median(price)
+    from productitem
+);
+
+/*7. Find all of the columns of the  fabric table where
+the instruction name from the careinstructions table 
+starts with the word "dry".
+(Query Type: Sub Query) */
+select *
+from fabric
+where careinstructionsid in
+(
+    select careinstructionsid
+    from careinstructions
+    where lower(instructionname) like 'dry%'
+)
+;
+
+/*8. Find the template id, templatewidth, and templateheight from the
+template table where pixelwidth is greater than 4000, pixelheight is less
+than 3000, and optimalresolution is 150. Do not show duplicate results.
+(Query Type: Complex Criteria)*/
+select distinct templateid, templatewidth, templateheight
+from template
+where pixelwidth > 4000
+and pixelheight < 3000
+and optimalresolution = 150;
+
+/*9. Find the maximum price for products in the "Home Decor" category.
+(Query Type: Aggregate) */
+select max(price)
+from productitem
+where lower(category) = 'home decor';
+
+/*10. Find how many fabrics are washed in the instructionname 'MACHINEWASHCOLD'.
+(Query Type: Sub Query and Aggregate Query) */
+select count(fabricname)
+from fabric, careinstructions
+where instructionname in
+(
+    select instructionname
+    from careinstructions
+    where lower(instructionname) = 'machinewashcold'
+)
+;
+
