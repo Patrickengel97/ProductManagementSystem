@@ -42,4 +42,4 @@ Employing various SQL techniques, I have created a scalable and flexible solutio
 
 ### Sample Queries
 
-Check out the [sample_queries.md](sample_queries.md) file to find various sample SQL queries that demonstrate the capabilities of this SQL project.
+Check out the sample_queries file to find various sample SQL queries that demonstrate the capabilities of this SQL project.
