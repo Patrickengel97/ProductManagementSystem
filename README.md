@@ -39,3 +39,7 @@ This SQL project demonstrates my ability to design and implement a robust databa
 By efficiently organizing and retrieving product information, it facilitates streamlined inventory management, customization options, 
 and product feature associations. 
 Employing various SQL techniques, I have created a scalable and flexible solution that can be adapted to different business contexts.
+
+### Sample Queries
+
+Check out the [sample_queries.md](sample_queries.md) file to find various sample SQL queries that demonstrate the capabilities of this SQL project.
