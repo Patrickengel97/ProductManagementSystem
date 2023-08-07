@@ -4,7 +4,7 @@ SQL Project: Product Item Management System
 I am excited to showcase my SQL project focused on building a Product Item Management System. 
 This project involves designing and managing a database to store and retrieve product information efficiently.
 
-Implemented Tables:
+## Implemented Tables:
 
 ProductItem: Stores details of products, including item number, name, type, category, subcategory, size, and price.
 
@@ -18,7 +18,7 @@ CareInstructions: Provides care instructions for different fabrics.
 
 Features: Captures features that can be associated with products.
 
-Key Features:
+## Key Features:
 
 Efficiently manage and store product information, including item details, categories, and prices.
 Customize product templates with various dimensions, pixel specifications, and optimal resolutions.
@@ -26,7 +26,7 @@ Support different printing methods for product customization.
 Maintain fabric details, including fabric ID, name, and associated care instructions.
 Capture features that can be associated with different products.
 
-Technologies and Skills Utilized:
+## Technologies and Skills Utilized:
 
 SQL database design and management
 Table creation with primary and foreign key constraints
@@ -34,7 +34,7 @@ Data insertion and retrieval operations
 Relationship management between tables
 Database normalization techniques
 
-Implications and Benefits:
+## Implications and Benefits:
 
 This SQL project demonstrates my ability to design and implement a robust database system for product item management. 
 By efficiently organizing and retrieving product information, it facilitates streamlined inventory management, customization options, 
@@ -44,3 +44,7 @@ Employing various SQL techniques, I have created a scalable and flexible solutio
 ### Sample Queries
 
 Check out the sample_queries file to find various sample SQL queries that demonstrate the capabilities of this SQL project.
+
+## Usage
+
+1. Refer to [SQL Script](SQL_Script) for the full script.
