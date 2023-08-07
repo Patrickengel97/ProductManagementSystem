@@ -44,7 +44,3 @@ Employing various SQL techniques, I have created a scalable and flexible solutio
 ### Sample Queries
 
 Check out the sample_queries file to find various sample SQL queries that demonstrate the capabilities of this SQL project.
-
-## Usage
-
-1. Refer to [SQL Script](SQL_Script) for the full script.
